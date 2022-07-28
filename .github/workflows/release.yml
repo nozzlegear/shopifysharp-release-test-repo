@@ -32,7 +32,7 @@ jobs:
 
     - name: Validate prerelease
       if: ${{ !steps.latest_prerelease.outputs.release }}
-      run:
+      run: |
         echo "No valid prerelease found, latest prerelease is empty."
         exit 1
 
