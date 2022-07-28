@@ -37,8 +37,9 @@ jobs:
         exit 1
 
     - name: Clone prerelease
-      run:
-        echo "Would clone prerelease ${{ steps.latest_prerelease.outputs.release }} here."
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ steps.latest_prerelease.outputs.release }}
 
     - name: Bump package version
       run: echo "Would bump package version to ${{ inputs.package_version }} and tag commit here."
