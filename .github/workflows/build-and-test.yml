@@ -2,7 +2,7 @@ name: Build/Test Pipeline
 
 on:
   push:
-    branches: [ master, setup-github-actions ]
+    branches: [ setup-github-actions ]
 
 jobs:
   build:
