@@ -15,6 +15,12 @@ jobs:
     environment: "Release deployment environment"
 
     steps:
+    - name: Install fish
+      run: |
+        sudo apt-add-repository ppa:fish-shell/release-3 \
+        && sudo apt-get -qq update \
+        && sudo apt-get -qq install fish parallel
+
     - name: Setup dotnet
       uses: actions/setup-dotnet@v2
       with:
@@ -22,24 +28,8 @@ jobs:
           6.0.x
           3.1.x
 
-    - name: Get latest prerelease
-      uses: rez0n/actions-github-release@main
-      id: latest_prerelease
-      env: 
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: nozzlegear/shopifysharp-release-test-repo
-        type: prerelease
-
-    - name: Validate prerelease
-      if: ${{ !steps.latest_prerelease.outputs.release }}
-      run: |
-        echo "No valid prerelease found, latest prerelease is empty."
-        exit 1
-
-    - name: Clone prerelease
+    - name: Clone repository
       uses: actions/checkout@v3
-      with:
-        ref: ${{ steps.latest_prerelease.outputs.release }}
 
     - name: Bump package version
       run: echo "Would bump package version to ${{ inputs.package_version }} and tag commit here."
