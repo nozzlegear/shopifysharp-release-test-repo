@@ -34,7 +34,7 @@ jobs:
       id: latest_prerelease
       env: 
         token: ${{ secrets.GITHUB_TOKEN }}
-        repository: nozzlegear/shopifysharp
+        repository: nozzlegear/shopifysharp-release-test-repo
         type: prerelease
 
     - name: Clone prerelease
