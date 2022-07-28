@@ -54,10 +54,10 @@ jobs:
       run: echo "Would download latest prerelease here. Would fail if no prerelease found."
 
     - name: Bump package version
-      run: echo "Would bump package version to {{ inputs.package_version }} and tag commit here."
+      run: echo "Would bump package version to ${{ inputs.package_version }} and tag commit here."
 
     - name: Publish package to Nuget
       run: echo "Would publish to nuget here."
 
     - name: Swap prerelease to release
-      run: echo "Would swap the prerelease to a release with tag/name {{ inputs.package_version }} here."
+      run: echo "Would swap the prerelease to a release with tag/name ${{ inputs.package_version }} here."
