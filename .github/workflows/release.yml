@@ -3,27 +3,6 @@ name: Release Pipeline
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning' 
-        type: choice
-        options:
-        - info
-        - warning
-        - debug 
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true 
-        type: boolean 
-      tags:
-        description: 'Test scenario tags'
-        required: true 
-        type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true 
       package_version:
         description: "New package version"
         type: string
@@ -50,8 +29,17 @@ jobs:
           6.0.x
           3.1.x
 
-    - name: Download artifacts
-      run: echo "Would download latest prerelease here. Would fail if no prerelease found."
+    - name: Get latest prerelease
+      uses: rez0n/actions-github-release@main
+      id: latest_prerelease
+      env: 
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: nozzlegear/shopifysharp
+        type: prerelease
+
+    - name: Clone prerelease
+      run:
+        echo "Would clone prerelease ${{ steps.node_release.outputs.release }} here."
 
     - name: Bump package version
       run: echo "Would bump package version to ${{ inputs.package_version }} and tag commit here."
