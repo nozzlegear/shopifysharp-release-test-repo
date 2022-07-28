@@ -9,13 +9,6 @@ on:
         required: true
 
 jobs:
-  print-tag:
-    runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }} 
-    steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
-
   publish:
     name: "Publish release packages"
     runs-on: ubuntu-20.04
@@ -39,7 +32,7 @@ jobs:
 
     - name: Clone prerelease
       run:
-        echo "Would clone prerelease ${{ steps.node_release.outputs.release }} here."
+        echo "Would clone prerelease ${{ steps.latest_prerelease.outputs.release }} here."
 
     - name: Bump package version
       run: echo "Would bump package version to ${{ inputs.package_version }} and tag commit here."
