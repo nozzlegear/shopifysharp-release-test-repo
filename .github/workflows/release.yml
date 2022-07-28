@@ -32,7 +32,24 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Bump package version
-      run: echo "Would bump package version to ${{ inputs.package_version }} and tag commit here."
+      run: fish .github/scripts/bump-version.fish "${{ inputs.package_version }}"
+      shell: bash
+
+    - name: Build and pack
+      run: fish .github/scripts/build.fish
+      shell: bash
+      env:
+        GITHUB_RUN_NUMBER: "${{ github.run_number }}"
+        ARTIFACT_DIR: "./artifacts"
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifacts
+        if-no-files-found: error
+        path: |
+          ./artifacts/*.nupkg
+          ./artifacts/*.snupkg
 
     - name: Publish package to Nuget
       run: echo "Would publish to nuget here."
