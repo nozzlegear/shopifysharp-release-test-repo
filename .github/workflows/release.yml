@@ -30,6 +30,12 @@ jobs:
         repository: nozzlegear/shopifysharp-release-test-repo
         type: prerelease
 
+    - name: Validate prerelease
+      if: ${{ !steps.latest_prerelease.outputs.release }}
+      run:
+        echo "No valid prerelease found, latest prerelease is empty."
+        exit 1
+
     - name: Clone prerelease
       run:
         echo "Would clone prerelease ${{ steps.latest_prerelease.outputs.release }} here."
