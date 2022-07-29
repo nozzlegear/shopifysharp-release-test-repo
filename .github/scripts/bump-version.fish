@@ -16,8 +16,8 @@ if test -z "$newVersion"
     exit 1
 end
 
-echo "listing project files"
-ls "$projectFile"
+echo "catting project files"
+cat "$projectFile"
 
 # Use sed to replace the <VersionPrefix>1.2.3</VersionPrefix> element in the project file
 sed -i "" -e "s/<VersionPrefix>.*<\/VersionPrefix>/<VersionPrefix>$newVersion<\/VersionPrefix>/" "$projectFile"
