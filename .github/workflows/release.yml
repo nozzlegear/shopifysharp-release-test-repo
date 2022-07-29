@@ -49,7 +49,8 @@ jobs:
         name: artifacts
         if-no-files-found: error
         path: |
-          "./artifacts/ShopifySharp.${{ inputs.package_version }}.*nupkg"
+          "./artifacts/ShopifySharp.${{ inputs.package_version }}.nupkg"
+          "./artifacts/ShopifySharp.${{ inputs.package_version }}.snupkg"
 
     - name: Commit package version change
       run: echo "would commit package version change back to the branch here"
@@ -66,4 +67,5 @@ jobs:
         prerelease: false
         title: "${{ inputs.package_version }}"
         files: |
-          "./artifacts/ShopifySharp.${{ inputs.package_version }}.*nupkg"
+          "./artifacts/ShopifySharp.${{ inputs.package_version }}.nupkg"
+          "./artifacts/ShopifySharp.${{ inputs.package_version }}.snupkg"
