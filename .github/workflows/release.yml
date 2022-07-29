@@ -34,6 +34,7 @@ jobs:
     - name: Bump package version
       run: |
         ls
+        ls ShopifySharp
         fish .github/scripts/bump-version.fish "${{ inputs.package_version }}"
       shell: bash
 
