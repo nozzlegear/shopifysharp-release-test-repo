@@ -52,8 +52,18 @@ jobs:
           ./artifacts/*.nupkg
           ./artifacts/*.snupkg
 
+    - name: Commit package version change
+      run: echo "would commit package version change back to the branch here"
+
     - name: Publish package to Nuget
       run: echo "Would publish to nuget here."
 
-    - name: Swap prerelease to release
-      run: echo "Would swap the prerelease to a release with tag/name ${{ inputs.package_version }} here."
+    - name: Create Github release
+      # This step will create a new Github and tag it with the input tag. 
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "${{ inputs.package_version }}"
+        prerelease: false
+        title: "${{ inputs.package_version }}"
+        files: ./artifacts/*
