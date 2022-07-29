@@ -53,13 +53,20 @@ jobs:
           ./artifacts/ShopifySharp.${{ inputs.package_version }}.snupkg
 
     - name: Commit package version change
-      run: echo "would commit package version change back to the branch here"
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: ./ShopifySharp/ShopifySharp.csproj
+        commit: --signoff
+        message: "Bump version to ${{ inputs.package_version }}"
+        pathspec_error_handling: exitAtEnd
+        push: true
+        tag: ${{ inputs.package_version }}
 
     - name: Publish package to Nuget
       run: echo "Would publish to nuget here."
 
     - name: Create Github release
-      # This step will create a new Github and tag it with the input tag. 
+      # This step will create a new Github release and tag it with the input tag. 
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
