@@ -16,8 +16,15 @@ if test -z "$newVersion"
     exit 1
 end
 
-echo "catting project files"
-cat "$projectFile"
+function sed 
+    # Sed behaves differently between macos and linux
+    # https://stackoverflow.com/a/57766728
+    if test (uname -s) = "Darwin"
+        command sed -i "" $argv
+    else
+        command sed -i $argv
+    end
+end
 
 # Use sed to replace the <VersionPrefix>1.2.3</VersionPrefix> element in the project file
-sed -i "" -e "s/<VersionPrefix>.*<\/VersionPrefix>/<VersionPrefix>$newVersion<\/VersionPrefix>/" "$projectFile"
+sed -e "s/<VersionPrefix>.*<\/VersionPrefix>/<VersionPrefix>$newVersion<\/VersionPrefix>/" "$projectFile"
