@@ -60,7 +60,6 @@ jobs:
         message: "Bump version to ${{ inputs.package_version }}"
         pathspec_error_handling: exitAtEnd
         push: true
-        tag: ${{ inputs.package_version }}
 
     - name: Publish package to Nuget
       run: echo "Would publish to nuget here."
